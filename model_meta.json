@@ -1,0 +1,129 @@
+{
+  "created": "2026-10-15T15:25:10",
+  "sklearn_version": "1.6.1",
+  "tf_version": "2.21.0",
+  "best": {
+    "sampler": "SMOTE",
+    "model": "LR",
+    "kind": "sk",
+    "files": [
+      "best_model.joblib"
+    ],
+    "params": {
+      "clf__C": 0.1
+    }
+  },
+  "best_ann": {
+    "files": [
+      "best_ann.h5",
+      "best_ann_preprocessor.joblib"
+    ],
+    "params": {
+      "units": 16,
+      "n_layers": 1,
+      "dropout": 0.0,
+      "lr": 0.01,
+      "l2": 0.01,
+      "batch": 16,
+      "epochs": 84
+    }
+  },
+  "threshold": 0.5,
+  "features": [
+    {
+      "name": "Gender",
+      "kind": "categorical",
+      "categories": [
+        "Female",
+        "Male"
+      ]
+    },
+    {
+      "name": "Age",
+      "kind": "numeric",
+      "min": 8.0,
+      "max": 65.0
+    },
+    {
+      "name": "AreaType",
+      "kind": "categorical",
+      "categories": [
+        "Developed",
+        "Undeveloped"
+      ]
+    },
+    {
+      "name": "HouseType",
+      "kind": "categorical",
+      "categories": [
+        "Building",
+        "Other",
+        "Tinshed"
+      ]
+    },
+    {
+      "name": "Joint_Pain",
+      "kind": "categorical",
+      "categories": [
+        "Moderate",
+        "None",
+        "Severe"
+      ]
+    },
+    {
+      "name": "Headache",
+      "kind": "binary"
+    },
+    {
+      "name": "Retro_Orbital_Pain",
+      "kind": "binary"
+    },
+    {
+      "name": "Myalgia",
+      "kind": "binary"
+    },
+    {
+      "name": "Rash",
+      "kind": "binary"
+    }
+  ],
+  "feature_order": [
+    "Gender",
+    "Age",
+    "AreaType",
+    "HouseType",
+    "Joint_Pain",
+    "Headache",
+    "Retro_Orbital_Pain",
+    "Myalgia",
+    "Rash"
+  ],
+  "cv_metrics": {
+    "Accuracy": {
+      "mean": 0.9612448773342279,
+      "std": 0.012753889685486927
+    },
+    "Precision": {
+      "mean": 0.9727698038982006,
+      "std": 0.013128144777233645
+    },
+    "Recall": {
+      "mean": 0.9551593667770139,
+      "std": 0.011421609071243873
+    },
+    "F1": {
+      "mean": 0.963844980337851,
+      "std": 0.010203781247510084
+    },
+    "ROC_AUC": {
+      "mean": 0.9910030664281951,
+      "std": 0.0044644380490273085
+    },
+    "Brier": {
+      "mean": 0.033911026447333945,
+      "std": 0.006851194582299566
+    }
+  },
+  "validation": "nested StratifiedGroupKFold by Area (test areas unseen)",
+  "disclaimer": "Research prototype on a public survey dataset. Not a medical device."
+}

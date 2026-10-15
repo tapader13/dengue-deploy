@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dengue Risk Predictor</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        background: white;
+        padding: 30px 35px;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 520px;
+      }
+      h1 {
+        margin: 0 0 5px;
+        font-size: 24px;
+        color: #2c3e50;
+        text-align: center;
+      }
+      .subtitle {
+        text-align: center;
+        color: #7f8c8d;
+        font-size: 13px;
+        margin-bottom: 25px;
+      }
+      label {
+        display: block;
+        margin-top: 14px;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: #34495e;
+        font-size: 14px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1.5px solid #e1e8ed;
+        border-radius: 8px;
+        font-size: 15px;
+        background: #fafbfc;
+      }
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .radio-group {
+        display: flex;
+        gap: 20px;
+        padding: 8px 0;
+      }
+      .radio-group label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0;
+        font-weight: normal;
+        cursor: pointer;
+      }
+      .radio-group input {
+        width: auto;
+      }
+      button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 25px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:hover {
+        opacity: 0.92;
+      }
+      .result {
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        color: white;
+      }
+      .result h2 {
+        margin: 0 0 8px;
+        font-size: 20px;
+      }
+      .result .prob {
+        font-size: 36px;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+      .result .risk {
+        font-size: 13px;
+        opacity: 0.9;
+        background: rgba(255, 255, 255, 0.2);
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+      }
+      .disclaimer {
+        text-align: center;
+        font-size: 11px;
+        color: #95a5a6;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🦟 Dengue Risk Predictor</h1>
+      <p class="subtitle">Fill the patient information to assess dengue risk</p>
+
+      <form action="/predict-form" method="post">
+        <div class="row">
+          <div>
+            <label>Gender</label>
+            <select name="Gender" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div>
+            <label>Age (8-65)</label>
+            <input
+              type="number"
+              name="Age"
+              min="8"
+              max="65"
+              value="30"
+              required
+            />
+          </div>
+        </div>
+
+        <label>Area Type</label>
+        <select name="AreaType" required>
+          <option value="Developed">Developed</option>
+          <option value="Undeveloped">Undeveloped</option>
+        </select>
+
+        <label>House Type</label>
+        <select name="HouseType" required>
+          <option value="Building">Building</option>
+          <option value="Other">Other</option>
+          <option value="Tinshed">Tinshed</option>
+        </select>
+
+        <label>Joint Pain</label>
+        <select name="Joint_Pain" required>
+          <option value="None">None</option>
+          <option value="Moderate">Moderate</option>
+          <option value="Severe">Severe</option>
+        </select>
+
+        <label>Headache</label>
+        <div class="radio-group">
+          <label
+            ><input type="radio" name="Headache" value="1" required />
+            Yes</label
+          >
+          <label
+            ><input type="radio" name="Headache" value="0" checked /> No</label
+          >
+        </div>
+
+        <label>Retro-Orbital Pain (eye pain)</label>
+        <div class="radio-group">
+          <label
+            ><input type="radio" name="Retro_Orbital_Pain" value="1" required />
+            Yes</label
+          >
+          <label
+            ><input type="radio" name="Retro_Orbital_Pain" value="0" checked />
+            No</label
+          >
+        </div>
+
+        <label>Myalgia (muscle pain)</label>
+        <div class="radio-group">
+          <label
+            ><input type="radio" name="Myalgia" value="1" required /> Yes</label
+          >
+          <label
+            ><input type="radio" name="Myalgia" value="0" checked /> No</label
+          >
+        </div>
+
+        <label>Rash</label>
+        <div class="radio-group">
+          <label
+            ><input type="radio" name="Rash" value="1" required /> Yes</label
+          >
+          <label><input type="radio" name="Rash" value="0" checked /> No</label>
+        </div>
+
+        <button type="submit">Predict Dengue Risk</button>
+      </form>
+
+      {% if prediction %}
+      <div class="result" style="background: {{ prediction.color }};">
+        <h2>{{ prediction.label }}</h2>
+        <div class="prob">{{ prediction.probability }}</div>
+        <div class="risk">Risk Level: {{ prediction.risk_level }}</div>
+      </div>
+      {% endif %}
+
+      <p class="disclaimer">Research prototype — not a medical device.</p>
+    </div>
+  </body>
+</html>
